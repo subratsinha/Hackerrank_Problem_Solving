@@ -1,0 +1,78 @@
+Given an array of integers, determine the minimum number of elements to delete to leave only elements of equal value.
+
+Example
+
+
+Delete the  elements  and  leaving . If both twos plus either the  or the  are deleted, it takes  deletions to leave either  or . The minimum number of deletions is .
+
+Function Description
+
+Complete the equalizeArray function in the editor below.
+
+equalizeArray has the following parameter(s):
+
+int arr[n]: an array of integers
+Returns
+
+int: the minimum number of deletions required
+Input Format
+
+The first line contains an integer , the number of elements in .
+The next line contains  space-separated integers .
+
+
+//////////////////////////////////////////////////////////////////////////// SOLUTION //////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'equalizeArray' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER_ARRAY arr as parameter.
+#
+
+
+/////////////////////////////////////////////////////////////////////////
+
+def equalizeArray(arr):
+    # Write your code here
+    count=0
+    x=0
+    for i in range(0,len(arr)):
+        
+        for j in range(0,len(arr)):
+            
+            if (arr[i]==arr[j]):
+                count+=1
+        
+        if(x<count):
+            x=count
+            
+        count=0
+        
+    return (len(arr)-x)
+
+//////////////////////////////////////////////////////////////////////////
+    
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = equalizeArray(arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
