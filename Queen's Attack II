@@ -1,0 +1,113 @@
+You will be given a square chess board with one queen and a number of obstacles placed on it. Determine how many squares the queen can attack.
+
+A queen is standing on an  chessboard. The chess board's rows are numbered from  to , going from bottom to top. Its columns are numbered from  to , going from left to right. Each square is referenced by a tuple, , describing the row, , and column, , where the square is located.
+
+The queen is standing at position . In a single move, she can attack any square in any of the eight directions (left, right, up, down, and the four diagonals). In the diagram below, the green circles denote all the cells the queen can attack from :
+
+image
+
+There are obstacles on the chessboard, each preventing the queen from attacking any square beyond it on that path. For example, an obstacle at location  in the diagram above prevents the queen from attacking cells , , and :
+
+image
+
+Given the queen's position and the locations of all the obstacles, find and print the number of squares the queen can attack from her position at . In the board above, there are  such squares.
+
+Function Description
+
+Complete the queensAttack function in the editor below.
+
+queensAttack has the following parameters:
+- int n: the number of rows and columns in the board
+- nt k: the number of obstacles on the board
+- int r_q: the row number of the queen's position
+- int c_q: the column number of the queen's position
+- int obstacles[k][2]: each element is an array of  integers, the row and column of an obstacle
+
+Returns
+- int: the number of squares the queen can attack
+
+
+//////////////////////////////////////////////////////////////////////////////////// SOLUTION /////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'queensAttack' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER n
+#  2. INTEGER k
+#  3. INTEGER r_q
+#  4. INTEGER c_q
+#  5. 2D_INTEGER_ARRAY obstacles
+#
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+def queensAttack(n, k, r_q, c_q, obstacles):
+    # Write your code here
+    
+    tot_tiles = 0
+
+    direction = [[1,1],[1,0],[0,1],[-1,-1],[-1,0],[0,-1],[-1,1],[1,-1]]
+    blocked = 0
+
+    obs = {}
+
+
+    if(obstacles): 
+        for ob in obstacles:
+            obs[ob[0],ob[1]] = 1
+
+    for move in direction:
+        i, j = r_q, c_q
+        i += move[0]
+        j += move[1]
+        while(i<=n and j<=n and i>0 and j>0):
+            
+            if((i,j) in obs):
+                break
+            else:
+                tot_tiles += 1
+            i += move[0]
+            j += move[1]
+
+    return tot_tiles
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    k = int(first_multiple_input[1])
+
+    second_multiple_input = input().rstrip().split()
+
+    r_q = int(second_multiple_input[0])
+
+    c_q = int(second_multiple_input[1])
+
+    obstacles = []
+
+    for _ in range(k):
+        obstacles.append(list(map(int, input().rstrip().split())))
+
+    result = queensAttack(n, k, r_q, c_q, obstacles)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
